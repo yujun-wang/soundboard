@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Soundboard</title>
+<script src="/lib/jq/jquery-1.9.1.min.js"></script>
+<link href="/lib/bootstrap/bootstrap-combined.min.css" rel="stylesheet">
+<link href="/lib/bootstrap/bootstrap-responsive.min.css" rel="stylesheet">
+<script src="/lib/bootstrap/bootstrap.min.js"></script>
+<script src="/lib/jq.jplayer/jquery.jplayer.min.js"></script>
+<style>
+#soundboard {
+	padding: 20px;
+}
+#soundboard a {
+	text-align: left;
+	margin-bottom: 10px;
+}
+#soundboard a > span {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+</style>
+<script>
+$(function() {
+	$('[data-sound]').each(function() {
+		var sound = $(this).data('sound');
+		$('<div></div>')
+			.attr('id', sound)
+			.addClass('sound')
+			.jPlayer({
+				playing: function() {
+					$('#btn-' + sound).addClass('btn-primary');
+					$(this).data('playing', true);
+				},
+				ended: function() {
+					$('#btn-' + sound).removeClass('btn-primary');
+					$(this).data('playing', false);
+				},
+				errorAlerts: 1,
+				error: function(e) {
+					console.warn("Sound> Error", e);
+				},
+				swfPath: '/lib/jq.jplayer',
+				supplied: "oga, mp3",
+				ready: function() {
+					console.log('LOAD', sound);
+					$(this).jPlayer('setMedia', {
+						oga: '/sound/' + sound + '.ogg',
+						mp3: '/sound/' + sound + '.mp3'
+					});
+				},
+				preload: 'auto'
+			})
+			.appendTo('body');
+		$(this)
+			.attr('id', 'btn-' + sound)
+			.on('click', function() {
+				$('#' + sound).jPlayer('play');
+			});
+	});
+});
+</script>
+</head>
+<body>
+	<div id="soundboard">
+		<h1>Simpsons</h1>
+		<a data-sound="doh" class="btn btn-large"><span>Homer Simpson</span>Doh!</a>
+		<a data-sound="repeat-that" class="btn btn-large"><span>Homer Simpson</span>Could you Repeat That?</a>
+		<a data-sound="donuts" class="btn btn-large"><span>Homer Simpson</span>Mmm... Donuts</a>
+		<a data-sound="burp" class="btn btn-large"><span>Barney</span>Burp</a>
+		<a data-sound="release-the-hounds" class="btn btn-large"><span>Mr. Burns</span>Release the Hounds</a>
+		<a data-sound="hi-dr-nick" class="btn btn-large"><span>Dr. Nick</span>Hi Everybody!</a>
+		<a data-sound="bonjour" class="btn btn-large"><span>Groundskeeper Willie</span>Bonjour...</a>
+	</div>
+</body>
+</html>
