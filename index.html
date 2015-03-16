@@ -1,11 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<meta content='width=device-width; initial-scale=0.25; maximum-scale=1.0; user-scalable=no;' name='viewport'/>
+<meta content='width=device-width; initial-scale=1; maximum-scale=1.0; user-scalable=no;' name='viewport'/>
 <meta http-equiv="Content-Language" content="en"/>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 <meta name="google" value="notranslate"/>
-<meta name="viewport" content="width=device-width; minimum-scale=0.25"/>
 <meta charset="UTF-8">
 <title>Soundboard</title>
 <script src="lib/jq/jquery-1.9.1.min.js"></script>
@@ -23,6 +22,12 @@ body {
 	user-select: none;
 }
 
+h1 {
+	font-size: 25px;
+	margin-top: 20px;
+	border-bottom: 1px solid #CCC;
+}
+
 #soundboard {
 	padding: 20px;
 }
@@ -30,6 +35,13 @@ body {
 	text-align: left;
 	margin-bottom: 10px;
 }
+
+@media all and (max-width: 800px) {
+	#soundboard a {
+		display: block;
+	}
+}
+
 #soundboard a > span {
 	display: block;
 	font-weight: bold;
